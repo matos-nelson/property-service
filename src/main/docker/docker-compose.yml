@@ -1,0 +1,30 @@
+version: '3.8'
+
+name: property-container
+services:
+  app:
+    image: 'quarkus/property-service'
+    container_name: "property-app"
+    ports:
+      - '8080:8080'
+    links:
+      - "mysql-db"
+    environment:
+      - DB_USER=root
+      - DB_PWD=root
+      - DB_URL=jdbc:mysql://mysql-db/property
+
+  mysql-db:
+    image: mysql:8.0
+    container_name: "mysql-db"
+    environment:
+      - MYSQL_DATABASE=property
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - '3306:3306'
+    volumes:
+      - property:/var/lib/mysql
+      - ./../../../db/sql/create_property_schema.sql:/docker-entrypoint-initdb.d/create_property_schema.sql
+volumes:
+  property:
+    driver: local
