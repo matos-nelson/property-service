@@ -10,11 +10,11 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.native-micro -t quarkus/owner-service .
+# docker build -f src/main/docker/Dockerfile.native-micro -t quarkus/property-service .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/owner-service
+# docker run -i --rm -p 8080:8080 quarkus/property-service
 #
 ###
 FROM quay.io/quarkus/quarkus-micro-image:2.0
