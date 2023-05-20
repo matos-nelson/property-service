@@ -55,4 +55,33 @@ public class PropertyResourceTest {
             .then()
             .statusCode(HttpStatus.SC_BAD_REQUEST);
     }
+
+    @Test
+    public void GET_WhenAPropertyCantBeFound_ShouldReturnNoContent() {
+        // Arrange
+
+        // Act
+        // Assert
+        given()
+            .when()
+            .get("/123/owner/123")
+            .then()
+            .statusCode(HttpStatus.SC_NO_CONTENT);
+    }
+
+    @Test
+    public void GET_WhenAPropertyIsFound_ShouldReturnPropertyInfo() {
+        // Arrange
+
+        // Act
+        // Assert
+        given()
+            .when()
+            .get("/100/owner/123")
+            .then()
+            .statusCode(HttpStatus.SC_OK)
+            .body("type", is("RENTAL"),
+                "addressId", is(456),
+                "ownerId", is(123));
+    }
 }

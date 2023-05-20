@@ -8,6 +8,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.mockito.InjectMock;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
+import org.rent.circle.owner.api.owner.api.dto.PropertyDto;
 import org.rent.circle.owner.api.owner.api.dto.SavePropertyDto;
 import org.rent.circle.owner.api.owner.api.persistence.model.Property;
 import org.rent.circle.owner.api.owner.api.persistence.repository.PropertyRepository;
@@ -45,5 +46,32 @@ public class PropertyServiceTest {
         // Assert
         assertNotNull(result);
         assertEquals(property.getId(), result);
+    }
+
+    @Test
+    public void getProperty_WhenCalled_ShouldReturnProperty() {
+        // Arrange
+        Long propertyId = 123L;
+        Long ownerId = 456L;
+
+        Property property = new Property();
+        property.setId(propertyId);
+        property.setOwnerId(ownerId);
+
+        PropertyDto propertyDto = new PropertyDto();
+        propertyDto.setOwnerId(ownerId);
+        propertyDto.setAddressId(888L);
+
+        when(propertyRepository.findByIdAndOwnerId(propertyId, ownerId)).thenReturn(property);
+        when(propertyMapper.toDto(property)).thenReturn(propertyDto);
+
+        // Act
+        PropertyDto result = propertyService.getProperty(propertyId, ownerId);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(propertyDto.getType(), result.getType());
+        assertEquals(propertyDto.getOwnerId(), result.getOwnerId());
+        assertEquals(propertyDto.getAddressId(), result.getAddressId());
     }
 }

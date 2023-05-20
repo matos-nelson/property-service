@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
+import org.rent.circle.owner.api.owner.api.dto.PropertyDto;
 import org.rent.circle.owner.api.owner.api.dto.SavePropertyDto;
 import org.rent.circle.owner.api.owner.api.persistence.model.Property;
 import org.rent.circle.owner.api.owner.api.service.mapper.PropertyMapper;
@@ -43,5 +44,33 @@ public class PropertyMapperTest {
         assertNotNull(result);
         assertEquals(savePropertyDto.getAddressId(), result.getAddressId());
         assertEquals(savePropertyDto.getOwnerId(), result.getOwnerId());
+    }
+
+    @Test
+    public void toDto_WhenGivenNull_ShouldReturnNull() {
+        // Arrange
+
+        // Act
+        PropertyDto result = propertyMapper.toDto(null);
+
+        // Assert
+        assertNull(result);
+    }
+
+    @Test
+    public void toDto_WhenGivenAProperty_ShouldMap() {
+        // Arrange
+        Property property = new Property();
+        property.setAddressId(123L);
+        property.setOwnerId(456L);
+
+        // Act
+        PropertyDto result = propertyMapper.toDto(property);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(property.getOwnerId(), result.getOwnerId());
+        assertEquals(property.getAddressId(), result.getAddressId());
+        assertEquals(property.getType(), result.getType());
     }
 }

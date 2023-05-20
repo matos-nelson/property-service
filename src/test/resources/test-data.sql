@@ -1,0 +1,1 @@
+INSERT INTO property(id, type, owner_id, address_id) values (100, 'RENTAL', 123, 456);
