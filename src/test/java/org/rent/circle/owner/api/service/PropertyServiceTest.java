@@ -7,7 +7,10 @@ import static org.mockito.Mockito.when;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.mockito.InjectMock;
 import jakarta.inject.Inject;
+import java.util.Collections;
+import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.rent.circle.owner.api.owner.api.dto.PropertyDto;
 import org.rent.circle.owner.api.owner.api.dto.SavePropertyDto;
 import org.rent.circle.owner.api.owner.api.persistence.model.Property;
 import org.rent.circle.owner.api.owner.api.persistence.repository.PropertyRepository;
@@ -45,5 +48,63 @@ public class PropertyServiceTest {
         // Assert
         assertNotNull(result);
         assertEquals(property.getId(), result);
+    }
+
+    @Test
+    public void getProperty_WhenCalled_ShouldReturnProperty() {
+        // Arrange
+        Long propertyId = 123L;
+        Long ownerId = 456L;
+
+        Property property = new Property();
+        property.setId(propertyId);
+        property.setOwnerId(ownerId);
+
+        PropertyDto propertyDto = new PropertyDto();
+        propertyDto.setOwnerId(ownerId);
+        propertyDto.setAddressId(888L);
+
+        when(propertyRepository.findByIdAndOwnerId(propertyId, ownerId)).thenReturn(property);
+        when(propertyMapper.toDto(property)).thenReturn(propertyDto);
+
+        // Act
+        PropertyDto result = propertyService.getProperty(propertyId, ownerId);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(propertyDto.getType(), result.getType());
+        assertEquals(propertyDto.getOwnerId(), result.getOwnerId());
+        assertEquals(propertyDto.getAddressId(), result.getAddressId());
+    }
+
+    @Test
+    public void getProperties_WhenCalled_ShouldReturnProperties() {
+        // Arrange
+        int page = 0;
+        int pageSize = 10;
+        Long ownerId = 456L;
+
+        Property property = new Property();
+        property.setId(123L);
+        property.setOwnerId(ownerId);
+
+        PropertyDto propertyDto = new PropertyDto();
+        propertyDto.setOwnerId(ownerId);
+        propertyDto.setAddressId(888L);
+
+        when(propertyRepository.getOwnerProperties(ownerId, page, pageSize)).thenReturn(
+            Collections.singletonList(property));
+        when(propertyMapper.getProperties(Collections.singletonList(property))).thenReturn(
+            Collections.singletonList(propertyDto));
+
+        // Act
+        List<PropertyDto> result = propertyService.getProperties(ownerId, page, pageSize);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        assertEquals(propertyDto.getType(), result.get(0).getType());
+        assertEquals(propertyDto.getOwnerId(), result.get(0).getOwnerId());
+        assertEquals(propertyDto.getAddressId(), result.get(0).getAddressId());
     }
 }
