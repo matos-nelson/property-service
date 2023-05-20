@@ -1,14 +1,17 @@
 package org.rent.circle.owner.api.persistence.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.rent.circle.owner.api.owner.api.persistence.model.Property;
 import org.rent.circle.owner.api.owner.api.persistence.repository.PropertyRepository;
@@ -46,5 +49,44 @@ public class PropertyRepositoryTest {
         assertNotNull(result);
         assertEquals(id, result.getId());
         assertEquals(ownerId, result.getOwnerId());
+    }
+
+    @Test
+    @TestTransaction
+    public void getOwnerProperties_WhenPropertiesDoNotExist_ShouldReturnNoProperties() {
+        // Arrange
+
+        // Act
+        List<Property> result = propertyRepository.getOwnerProperties(456L, 1, 10);
+
+        // Assert
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    @TestTransaction
+    public void getOwnerProperties_WhenPropertiesDoExist_ShouldReturnProperties() {
+        // Arrange
+
+        // Act
+        List<Property> result = propertyRepository.getOwnerProperties(123L, 0, 10);
+
+        // Assert
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
+    }
+
+    @Test
+    @TestTransaction
+    public void getOwnerProperties_WhenPropertiesDoNotExistInPage_ShouldReturnNoProperties() {
+        // Arrange
+
+        // Act
+        List<Property> result = propertyRepository.getOwnerProperties(123L, 10, 10);
+
+        // Assert
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
     }
 }

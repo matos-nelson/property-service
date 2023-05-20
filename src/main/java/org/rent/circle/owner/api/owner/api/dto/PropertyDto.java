@@ -1,10 +1,13 @@
 package org.rent.circle.owner.api.owner.api.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class PropertyDto {
 
+    private Long id;
     private String type;
     private Long ownerId;
     private Long addressId;

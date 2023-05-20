@@ -1,5 +1,6 @@
 package org.rent.circle.owner.api.owner.api.service.mapper;
 
+import java.util.List;
 import org.mapstruct.Mapper;
 import org.rent.circle.owner.api.owner.api.dto.PropertyDto;
 import org.rent.circle.owner.api.owner.api.dto.SavePropertyDto;
@@ -10,5 +11,8 @@ public interface PropertyMapper {
 
     Property toModel(SavePropertyDto savePropertyDto);
 
+
     PropertyDto toDto(Property property);
+
+    List<PropertyDto> getProperties(List<Property> properties);
 }
