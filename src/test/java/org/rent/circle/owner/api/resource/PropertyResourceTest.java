@@ -110,7 +110,7 @@ public class PropertyResourceTest {
         // Arrange
 
         // Act
-        var result = given()
+        List<PropertyDto> result = given()
             .when()
             .get("/owner/123?page=0&pageSize=10")
             .then()
@@ -127,5 +127,18 @@ public class PropertyResourceTest {
         assertEquals(100, result.get(0).getId());
         assertEquals(456, result.get(0).getAddressId());
         assertEquals(123, result.get(0).getOwnerId());
+    }
+
+    @Test
+    public void GET_getProperties_WhenFailsValidation_ShouldReturnBadRequest() {
+        // Arrange
+
+        // Act
+        // Assert
+        given()
+            .when()
+            .get("/owner/123?page=0")
+            .then()
+            .statusCode(HttpStatus.SC_BAD_REQUEST);
     }
 }
