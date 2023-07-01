@@ -62,7 +62,7 @@ You can create a native executable using:
 
 You can create a docker image using:
 ```shell script
-docker build -f src/main/docker/Dockerfile.native-micro -t quarkus/address-service .
+docker build -f src/main/docker/Dockerfile.native-micro -t quarkus/property-service .
 ```
 
 ## Creating native executable to deploy to AWS

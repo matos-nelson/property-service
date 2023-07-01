@@ -1,15 +1,15 @@
-package org.rent.circle.owner.api.owner.api.service;
+package org.rent.circle.owner.api.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.rent.circle.owner.api.owner.api.dto.PropertyDto;
-import org.rent.circle.owner.api.owner.api.dto.SavePropertyDto;
-import org.rent.circle.owner.api.owner.api.persistence.model.Property;
-import org.rent.circle.owner.api.owner.api.persistence.repository.PropertyRepository;
-import org.rent.circle.owner.api.owner.api.service.mapper.PropertyMapper;
+import org.rent.circle.owner.api.dto.PropertyDto;
+import org.rent.circle.owner.api.dto.SavePropertyDto;
+import org.rent.circle.owner.api.persistence.model.Property;
+import org.rent.circle.owner.api.persistence.repository.PropertyRepository;
+import org.rent.circle.owner.api.service.mapper.PropertyMapper;
 
 @AllArgsConstructor
 @ApplicationScoped
