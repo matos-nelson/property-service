@@ -13,8 +13,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import org.rent.circle.owner.api.owner.api.persistence.model.Property;
-import org.rent.circle.owner.api.owner.api.persistence.repository.PropertyRepository;
+import org.rent.circle.owner.api.persistence.model.Property;
 
 @QuarkusTest
 @QuarkusTestResource(H2DatabaseTestResource.class)

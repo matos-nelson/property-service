@@ -1,11 +1,11 @@
-package org.rent.circle.owner.api.owner.api.persistence.repository;
+package org.rent.circle.owner.api.persistence.repository;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import io.quarkus.panache.common.Page;
 import io.quarkus.panache.common.Parameters;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
-import org.rent.circle.owner.api.owner.api.persistence.model.Property;
+import org.rent.circle.owner.api.persistence.model.Property;
 
 @ApplicationScoped
 public class PropertyRepository implements PanacheRepository<Property> {

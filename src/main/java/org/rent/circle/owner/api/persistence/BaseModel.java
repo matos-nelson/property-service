@@ -1,4 +1,4 @@
-package org.rent.circle.owner.api.owner.api.persistence;
+package org.rent.circle.owner.api.persistence;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;

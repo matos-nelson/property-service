@@ -1,4 +1,4 @@
-package org.rent.circle.owner.api.owner.api.resource;
+package org.rent.circle.owner.api.resource;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -13,9 +13,9 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import org.rent.circle.owner.api.owner.api.dto.PropertyDto;
-import org.rent.circle.owner.api.owner.api.dto.SavePropertyDto;
-import org.rent.circle.owner.api.owner.api.service.PropertyService;
+import org.rent.circle.owner.api.dto.PropertyDto;
+import org.rent.circle.owner.api.dto.SavePropertyDto;
+import org.rent.circle.owner.api.service.PropertyService;
 
 @AllArgsConstructor
 @Path("/property")
@@ -39,7 +39,7 @@ public class PropertyResource {
     }
 
     @POST
-    public Long saveAddress(@Valid SavePropertyDto savePropertyDto) {
+    public Long saveProperty(@Valid SavePropertyDto savePropertyDto) {
         return propertyService.saveProperty(savePropertyDto);
     }
 }

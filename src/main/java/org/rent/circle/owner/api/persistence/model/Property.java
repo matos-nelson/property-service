@@ -1,4 +1,4 @@
-package org.rent.circle.owner.api.owner.api.persistence.model;
+package org.rent.circle.owner.api.persistence.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.rent.circle.owner.api.owner.api.persistence.BaseModel;
+import org.rent.circle.owner.api.persistence.BaseModel;
 
 @Entity
 @Table(name = "property")

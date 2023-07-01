@@ -9,10 +9,9 @@ import jakarta.inject.Inject;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import org.rent.circle.owner.api.owner.api.dto.PropertyDto;
-import org.rent.circle.owner.api.owner.api.dto.SavePropertyDto;
-import org.rent.circle.owner.api.owner.api.persistence.model.Property;
-import org.rent.circle.owner.api.owner.api.service.mapper.PropertyMapper;
+import org.rent.circle.owner.api.dto.PropertyDto;
+import org.rent.circle.owner.api.dto.SavePropertyDto;
+import org.rent.circle.owner.api.persistence.model.Property;
 
 @QuarkusTest
 public class PropertyMapperTest {

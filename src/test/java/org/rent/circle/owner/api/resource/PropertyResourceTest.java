@@ -13,9 +13,8 @@ import io.restassured.common.mapper.TypeRef;
 import java.util.List;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
-import org.rent.circle.owner.api.owner.api.dto.PropertyDto;
-import org.rent.circle.owner.api.owner.api.dto.SavePropertyDto;
-import org.rent.circle.owner.api.owner.api.resource.PropertyResource;
+import org.rent.circle.owner.api.dto.PropertyDto;
+import org.rent.circle.owner.api.dto.SavePropertyDto;
 
 @QuarkusTest
 @TestHTTPEndpoint(PropertyResource.class)
