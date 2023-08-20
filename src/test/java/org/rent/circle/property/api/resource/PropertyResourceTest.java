@@ -10,6 +10,7 @@ import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.common.mapper.TypeRef;
+import java.math.BigDecimal;
 import java.util.List;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
@@ -25,8 +26,15 @@ public class PropertyResourceTest {
     public void Post_WhenGivenAValidPropertyToSave_ShouldReturnSavedProperty() {
         // Arrange
         SavePropertyDto savePropertyDto = SavePropertyDto.builder()
-            .addressId(123L)
-            .ownerId(456L)
+            .addressId(1L)
+            .ownerId(2L)
+            .bed((byte) 3)
+            .bath(1.75f)
+            .sqft(2000)
+            .price(BigDecimal.valueOf(100))
+            .petDeposit(BigDecimal.valueOf(200))
+            .deposit(BigDecimal.valueOf(300))
+            .maxAllowablePets((byte) 1)
             .build();
 
         // Act
@@ -84,10 +92,15 @@ public class PropertyResourceTest {
             .get("/100/owner/123")
             .then()
             .statusCode(HttpStatus.SC_OK)
-            .body("type", is("RENTAL"),
-                "id", is(100),
+            .body("id", is(100),
                 "addressId", is(456),
-                "ownerId", is(123));
+                "ownerId", is(123),
+                "bed", is(4),
+                "bath", is(2.25F),
+                "sqft", is(1943),
+                "price", is(1010.0F),
+                "petDeposit", is(1210.0F),
+                "maxAllowablePets", is(3));
     }
 
     @Test
@@ -116,15 +129,21 @@ public class PropertyResourceTest {
             .statusCode(HttpStatus.SC_OK)
             .extract()
             .body()
-            .as(new TypeRef<List<PropertyDto>>() {
+            .as(new TypeRef<>() {
             });
 
         // Assert
         assertNotNull(result);
         assertEquals(1, result.size());
         assertEquals(100, result.get(0).getId());
-        assertEquals(456, result.get(0).getAddressId());
-        assertEquals(123, result.get(0).getOwnerId());
+        assertEquals(123L, result.get(0).getOwnerId());
+        assertEquals(456L, result.get(0).getAddressId());
+        assertEquals(4, result.get(0).getBed().intValue());
+        assertEquals(2.25F, result.get(0).getBath());
+        assertEquals(1943, result.get(0).getSqft());
+        assertEquals(1010.0F, result.get(0).getPrice().floatValue());
+        assertEquals(1210.0F, result.get(0).getPetDeposit().floatValue());
+        assertEquals((byte) 3, result.get(0).getMaxAllowablePets());
     }
 
     @Test

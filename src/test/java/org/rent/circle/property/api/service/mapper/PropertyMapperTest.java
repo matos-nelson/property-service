@@ -37,13 +37,13 @@ public class PropertyMapperTest {
         SavePropertyDto savePropertyDto = SavePropertyDto.builder()
             .addressId(1L)
             .ownerId(2L)
-            .bed((byte)3)
-            .bath(1.75f)
+            .bed((byte) 3)
+            .bath(1.75F)
             .sqft(2000)
             .price(BigDecimal.valueOf(100))
             .petDeposit(BigDecimal.valueOf(200))
             .deposit(BigDecimal.valueOf(300))
-            .maxAllowablePets((byte)1)
+            .maxAllowablePets((byte) 1)
             .build();
 
         // Act
@@ -79,13 +79,13 @@ public class PropertyMapperTest {
         Property property = new Property();
         property.setAddressId(123L);
         property.setOwnerId(456L);
-        property.setBed((byte)3);
-        property.setBath(1.75f);
+        property.setBed((byte) 3);
+        property.setBath(1.75F);
         property.setSqft(2000);
         property.setPrice(BigDecimal.valueOf(100));
         property.setPetDeposit(BigDecimal.valueOf(200));
         property.setDeposit(BigDecimal.valueOf(300));
-        property.setMaxAllowablePets((byte)1);
+        property.setMaxAllowablePets((byte) 1);
 
         // Act
         PropertyDto result = propertyMapper.toDto(property);
@@ -120,13 +120,13 @@ public class PropertyMapperTest {
         Property property = new Property();
         property.setAddressId(123L);
         property.setOwnerId(456L);
-        property.setBed((byte)3);
-        property.setBath(1.75f);
+        property.setBed((byte) 3);
+        property.setBath(1.75F);
         property.setSqft(2000);
         property.setPrice(BigDecimal.valueOf(100));
         property.setPetDeposit(BigDecimal.valueOf(200));
         property.setDeposit(BigDecimal.valueOf(300));
-        property.setMaxAllowablePets((byte)1);
+        property.setMaxAllowablePets((byte) 1);
 
         // Act
         List<PropertyDto> result = propertyMapper.getProperties(Collections.singletonList(property));

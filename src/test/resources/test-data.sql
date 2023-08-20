@@ -1,1 +1,1 @@
-INSERT INTO property(id, type, owner_id, address_id) values (100, 'RENTAL', 123, 456);
+INSERT INTO property(id, owner_id, address_id, bed, bath, sqft, price, pet_deposit, max_allowable_pets) values (100, 123, 456, 4, 2.25, 1943, 1010.00, 1210.00, 3);
