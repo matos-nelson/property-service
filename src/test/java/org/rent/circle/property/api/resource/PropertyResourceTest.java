@@ -179,7 +179,7 @@ public class PropertyResourceTest {
             .contentType("application/json")
             .body(updatePropertyDto)
             .when()
-            .patch("/200")
+            .patch("/200/owner/1")
             .then()
             .statusCode(HttpStatus.SC_BAD_REQUEST);
     }
@@ -203,7 +203,7 @@ public class PropertyResourceTest {
             .contentType("application/json")
             .body(updatePropertyDto)
             .when()
-            .patch("/1000")
+            .patch("/1000/owner/1")
             .then()
             .statusCode(HttpStatus.SC_NO_CONTENT);
     }
@@ -227,7 +227,7 @@ public class PropertyResourceTest {
             .contentType("application/json")
             .body(updatePropertyDto)
             .when()
-            .patch("200")
+            .patch("/200/owner/1")
             .then()
             .statusCode(HttpStatus.SC_NO_CONTENT);
 

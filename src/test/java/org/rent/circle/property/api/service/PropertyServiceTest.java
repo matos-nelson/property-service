@@ -115,11 +115,12 @@ public class PropertyServiceTest {
     public void updateProperty_WhenPropertyIsNotFound_ShouldReturnNotUpdate() {
         // Arrange
         Long propertyId = 1L;
+        Long ownerId = 2L;
         UpdatePropertyDto updatePropertyInfo = UpdatePropertyDto.builder().build();
-        when(propertyRepository.findById(propertyId)).thenReturn(null);
+        when(propertyRepository.findByIdAndOwnerId(propertyId, ownerId)).thenReturn(null);
 
         // Act
-        propertyService.updateProperty(propertyId, updatePropertyInfo);
+        propertyService.updateProperty(propertyId, ownerId, updatePropertyInfo);
 
         // Assert
         verify(propertyMapper, never()).updateModel(updatePropertyInfo, null);
@@ -130,7 +131,7 @@ public class PropertyServiceTest {
     public void updateProperty_WhenCalled_ShouldUpdate() {
         // Arrange
         Long propertyId = 1L;
-
+        Long ownerId = 2L;
         Property property = new Property();
         property.setId(propertyId);
 
@@ -143,10 +144,10 @@ public class PropertyServiceTest {
             .deposit(BigDecimal.valueOf(300))
             .maxAllowablePets((byte) 1)
             .build();
-        when(propertyRepository.findById(propertyId)).thenReturn(property);
+        when(propertyRepository.findByIdAndOwnerId(propertyId, ownerId)).thenReturn(property);
 
         // Act
-        propertyService.updateProperty(propertyId, updatePropertyInfo);
+        propertyService.updateProperty(propertyId, ownerId, updatePropertyInfo);
 
         // Assert
         verify(propertyMapper, times(1)).updateModel(updatePropertyInfo, property);

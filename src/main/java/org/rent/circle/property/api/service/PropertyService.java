@@ -42,9 +42,9 @@ public class PropertyService {
     }
 
     @Transactional
-    public void updateProperty(Long propertyId, UpdatePropertyDto updatePropertyInfo) {
+    public void updateProperty(long propertyId, long ownerId, UpdatePropertyDto updatePropertyInfo) {
 
-        Property property = propertyRepository.findById(propertyId);
+        Property property = propertyRepository.findByIdAndOwnerId(propertyId, ownerId);
         if (property == null) {
             return;
         }

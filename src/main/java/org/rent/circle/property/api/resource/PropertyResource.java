@@ -29,7 +29,7 @@ public class PropertyResource {
 
     @GET
     @Path("/{id}/owner/{ownerId}")
-    public PropertyDto getProperty(@PathParam("id") long propertyId, long ownerId) {
+    public PropertyDto getProperty(@PathParam("id") long propertyId, @PathParam("ownerId") long ownerId) {
         return propertyService.getProperty(propertyId, ownerId);
     }
 
@@ -46,8 +46,8 @@ public class PropertyResource {
     }
 
     @PATCH
-    @Path("/{id}")
-    public void updateProperty(@PathParam("id") Long propertyId, @Valid UpdatePropertyDto updatePropertyInfo) {
-        propertyService.updateProperty(propertyId, updatePropertyInfo);
+    @Path("/{id}/owner/{ownerId}")
+    public void updateProperty(@PathParam("id") long propertyId, @PathParam("ownerId") long ownerId, @Valid UpdatePropertyDto updatePropertyInfo) {
+        propertyService.updateProperty(propertyId, ownerId, updatePropertyInfo);
     }
 }
