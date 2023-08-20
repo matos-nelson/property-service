@@ -2,16 +2,22 @@ package org.rent.circle.property.api.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.mockito.InjectMock;
 import jakarta.inject.Inject;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.rent.circle.property.api.dto.PropertyDto;
 import org.rent.circle.property.api.dto.SavePropertyDto;
+import org.rent.circle.property.api.dto.UpdatePropertyDto;
 import org.rent.circle.property.api.persistence.model.Property;
 import org.rent.circle.property.api.persistence.repository.PropertyRepository;
 import org.rent.circle.property.api.service.mapper.PropertyMapper;
@@ -103,5 +109,47 @@ public class PropertyServiceTest {
         assertEquals(1, result.size());
         assertEquals(propertyDto.getOwnerId(), result.get(0).getOwnerId());
         assertEquals(propertyDto.getAddressId(), result.get(0).getAddressId());
+    }
+
+    @Test
+    public void updateProperty_WhenPropertyIsNotFound_ShouldReturnNotUpdate() {
+        // Arrange
+        Long propertyId = 1L;
+        UpdatePropertyDto updatePropertyInfo = UpdatePropertyDto.builder().build();
+        when(propertyRepository.findById(propertyId)).thenReturn(null);
+
+        // Act
+        propertyService.updateProperty(propertyId, updatePropertyInfo);
+
+        // Assert
+        verify(propertyMapper, never()).updateModel(updatePropertyInfo, null);
+        verify(propertyRepository, never()).persist(Mockito.any(Property.class));
+    }
+
+    @Test
+    public void updateProperty_WhenCalled_ShouldUpdate() {
+        // Arrange
+        Long propertyId = 1L;
+
+        Property property = new Property();
+        property.setId(propertyId);
+
+        UpdatePropertyDto updatePropertyInfo = UpdatePropertyDto.builder()
+            .bed((byte) 3)
+            .bath(1.75F)
+            .sqft(2000)
+            .price(BigDecimal.valueOf(100))
+            .petDeposit(BigDecimal.valueOf(200))
+            .deposit(BigDecimal.valueOf(300))
+            .maxAllowablePets((byte) 1)
+            .build();
+        when(propertyRepository.findById(propertyId)).thenReturn(property);
+
+        // Act
+        propertyService.updateProperty(propertyId, updatePropertyInfo);
+
+        // Assert
+        verify(propertyMapper, times(1)).updateModel(updatePropertyInfo, property);
+        verify(propertyRepository, times(1)).persist(property);
     }
 }

@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.rent.circle.property.api.dto.PropertyDto;
 import org.rent.circle.property.api.dto.SavePropertyDto;
+import org.rent.circle.property.api.dto.UpdatePropertyDto;
 import org.rent.circle.property.api.persistence.model.Property;
 import org.rent.circle.property.api.persistence.repository.PropertyRepository;
 import org.rent.circle.property.api.service.mapper.PropertyMapper;
@@ -38,5 +39,17 @@ public class PropertyService {
         propertyRepository.persist(property);
 
         return property.getId();
+    }
+
+    @Transactional
+    public void updateProperty(Long propertyId, UpdatePropertyDto updatePropertyInfo) {
+
+        Property property = propertyRepository.findById(propertyId);
+        if (property == null) {
+            return;
+        }
+
+        propertyMapper.updateModel(updatePropertyInfo, property);
+        propertyRepository.persist(property);
     }
 }
