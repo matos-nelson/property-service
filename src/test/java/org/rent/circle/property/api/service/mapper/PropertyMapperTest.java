@@ -12,6 +12,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.rent.circle.property.api.dto.PropertyDto;
 import org.rent.circle.property.api.dto.SavePropertyDto;
+import org.rent.circle.property.api.dto.UpdatePropertyDto;
 import org.rent.circle.property.api.persistence.model.Property;
 
 @QuarkusTest
@@ -143,5 +144,63 @@ public class PropertyMapperTest {
         assertEquals(property.getPetDeposit(), result.get(0).getPetDeposit());
         assertEquals(property.getDeposit(), result.get(0).getDeposit());
         assertEquals(property.getMaxAllowablePets(), result.get(0).getMaxAllowablePets());
+    }
+
+    @Test
+    public void updateModel_WhenGivenUpdatePropertyIsNull_ShouldNotUpdate() {
+        // Arrange
+        Property property = new Property();
+        property.setAddressId(123L);
+        property.setOwnerId(456L);
+        property.setBed((byte) 3);
+        property.setBath(1.75F);
+        property.setSqft(2000);
+        property.setPrice(BigDecimal.valueOf(100));
+        property.setPetDeposit(BigDecimal.valueOf(200));
+        property.setDeposit(BigDecimal.valueOf(300));
+        property.setMaxAllowablePets((byte) 1);
+
+        // Act
+        propertyMapper.updateModel(null, property);
+
+        // Assert
+        assertNotNull(property);
+        assertNotNull(property.getAddressId());
+        assertNotNull(property.getOwnerId());
+        assertNotNull(property.getBed());
+        assertNotNull(property.getBath());
+        assertNotNull(property.getSqft());
+        assertNotNull(property.getPrice());
+        assertNotNull(property.getPetDeposit());
+        assertNotNull(property.getDeposit());
+        assertNotNull(property.getMaxAllowablePets());
+    }
+
+    @Test
+    public void updateModel_WhenGivenAnUpdatePropertyDto_ShouldUpdate() {
+        // Arrange
+        UpdatePropertyDto updatePropertyDto = UpdatePropertyDto.builder()
+            .bed((byte) 3)
+            .bath(1.75F)
+            .sqft(2000)
+            .price(BigDecimal.valueOf(100))
+            .petDeposit(BigDecimal.valueOf(200))
+            .deposit(BigDecimal.valueOf(300))
+            .maxAllowablePets((byte) 1)
+            .build();
+
+        Property property = new Property();
+
+        // Act
+        propertyMapper.updateModel(updatePropertyDto, property);
+
+        // Assert
+        assertEquals(updatePropertyDto.getBed(), property.getBed());
+        assertEquals(updatePropertyDto.getBath(), property.getBath());
+        assertEquals(updatePropertyDto.getSqft(), property.getSqft());
+        assertEquals(updatePropertyDto.getPrice(), property.getPrice());
+        assertEquals(updatePropertyDto.getPetDeposit(), property.getPetDeposit());
+        assertEquals(updatePropertyDto.getDeposit(), property.getDeposit());
+        assertEquals(updatePropertyDto.getMaxAllowablePets(), property.getMaxAllowablePets());
     }
 }
