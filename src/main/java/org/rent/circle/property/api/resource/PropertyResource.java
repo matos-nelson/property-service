@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -15,6 +16,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import org.rent.circle.property.api.dto.PropertyDto;
 import org.rent.circle.property.api.dto.SavePropertyDto;
+import org.rent.circle.property.api.dto.UpdatePropertyDto;
 import org.rent.circle.property.api.service.PropertyService;
 
 @AllArgsConstructor
@@ -41,5 +43,11 @@ public class PropertyResource {
     @POST
     public Long saveProperty(@Valid SavePropertyDto savePropertyDto) {
         return propertyService.saveProperty(savePropertyDto);
+    }
+
+    @PATCH
+    @Path("/{id}")
+    public void updateProperty(@PathParam("id") Long propertyId, @Valid UpdatePropertyDto updatePropertyInfo) {
+        propertyService.updateProperty(propertyId, updatePropertyInfo);
     }
 }

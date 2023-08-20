@@ -21,17 +21,24 @@ public class SavePropertyDto {
     @NotNull
     private Long addressId;
 
+    @NotNull
     private Byte bed;
 
+    @NotNull
     private Float bath;
 
+    @NotNull
     private Integer sqft;
 
+    @NotNull
     private BigDecimal price;
 
+    @NotNull
     private BigDecimal deposit;
 
+    @NotNull
     private BigDecimal petDeposit;
 
+    @NotNull
     private Byte maxAllowablePets;
 }
