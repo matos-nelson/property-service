@@ -16,7 +16,7 @@ import lombok.Setter;
 public class SavePropertyDto {
 
     @NotNull
-    private Long ownerId;
+    private String ownerId;
 
     @NotNull
     private Long addressId;

@@ -38,7 +38,7 @@ public class PropertyServiceTest {
     public void saveProperty_WhenCalled_ShouldReturnProperty() {
         // Arrange
         SavePropertyDto savePropertyDto = SavePropertyDto.builder()
-            .ownerId(1L)
+            .ownerId("1")
             .addressId(2L)
             .build();
 
@@ -59,7 +59,7 @@ public class PropertyServiceTest {
     public void getProperty_WhenCalled_ShouldReturnProperty() {
         // Arrange
         Long propertyId = 123L;
-        Long ownerId = 456L;
+        String ownerId = "456";
 
         Property property = new Property();
         property.setId(propertyId);
@@ -86,7 +86,7 @@ public class PropertyServiceTest {
         // Arrange
         int page = 0;
         int pageSize = 10;
-        Long ownerId = 456L;
+        String ownerId = "456";
 
         Property property = new Property();
         property.setId(123L);
@@ -114,8 +114,8 @@ public class PropertyServiceTest {
     @Test
     public void updateProperty_WhenPropertyIsNotFound_ShouldReturnNotUpdate() {
         // Arrange
-        Long propertyId = 1L;
-        Long ownerId = 2L;
+        long propertyId = 1L;
+        String ownerId = "2";
         UpdatePropertyDto updatePropertyInfo = UpdatePropertyDto.builder().build();
         when(propertyRepository.findByIdAndOwnerId(propertyId, ownerId)).thenReturn(null);
 
@@ -131,7 +131,7 @@ public class PropertyServiceTest {
     public void updateProperty_WhenCalled_ShouldUpdate() {
         // Arrange
         Long propertyId = 1L;
-        Long ownerId = 2L;
+        String ownerId = "2";
         Property property = new Property();
         property.setId(propertyId);
 

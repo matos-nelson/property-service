@@ -37,7 +37,7 @@ public class PropertyMapperTest {
         // Arrange
         SavePropertyDto savePropertyDto = SavePropertyDto.builder()
             .addressId(1L)
-            .ownerId(2L)
+            .ownerId("2")
             .bed((byte) 3)
             .bath(1.75F)
             .sqft(2000)
@@ -79,7 +79,7 @@ public class PropertyMapperTest {
         // Arrange
         Property property = new Property();
         property.setAddressId(123L);
-        property.setOwnerId(456L);
+        property.setOwnerId("456");
         property.setBed((byte) 3);
         property.setBath(1.75F);
         property.setSqft(2000);
@@ -120,7 +120,7 @@ public class PropertyMapperTest {
         // Arrange
         Property property = new Property();
         property.setAddressId(123L);
-        property.setOwnerId(456L);
+        property.setOwnerId("456");
         property.setBed((byte) 3);
         property.setBath(1.75F);
         property.setSqft(2000);
@@ -151,7 +151,7 @@ public class PropertyMapperTest {
         // Arrange
         Property property = new Property();
         property.setAddressId(123L);
-        property.setOwnerId(456L);
+        property.setOwnerId("456");
         property.setBed((byte) 3);
         property.setBath(1.75F);
         property.setSqft(2000);

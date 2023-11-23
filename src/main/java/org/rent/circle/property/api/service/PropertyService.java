@@ -20,13 +20,13 @@ public class PropertyService {
     private final PropertyRepository propertyRepository;
     private final PropertyMapper propertyMapper;
 
-    public PropertyDto getProperty(long propertyId, long ownerId) {
+    public PropertyDto getProperty(long propertyId, String ownerId) {
 
         Property property = propertyRepository.findByIdAndOwnerId(propertyId, ownerId);
         return propertyMapper.toDto(property);
     }
 
-    public List<PropertyDto> getProperties(long ownerId, int page, int pageSize) {
+    public List<PropertyDto> getProperties(String ownerId, int page, int pageSize) {
 
         List<Property> properties = propertyRepository.getOwnerProperties(ownerId, page, pageSize);
         return propertyMapper.getProperties(properties);
@@ -42,7 +42,7 @@ public class PropertyService {
     }
 
     @Transactional
-    public void updateProperty(long propertyId, long ownerId, UpdatePropertyDto updatePropertyInfo) {
+    public void updateProperty(long propertyId, String ownerId, UpdatePropertyDto updatePropertyInfo) {
 
         Property property = propertyRepository.findByIdAndOwnerId(propertyId, ownerId);
         if (property == null) {

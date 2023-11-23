@@ -28,7 +28,7 @@ public class PropertyResourceTest {
         // Arrange
         SavePropertyDto savePropertyDto = SavePropertyDto.builder()
             .addressId(1L)
-            .ownerId(2L)
+            .ownerId("2")
             .bed((byte) 3)
             .bath(1.75f)
             .sqft(2000)
@@ -55,7 +55,7 @@ public class PropertyResourceTest {
         // Arrange
         SavePropertyDto savePropertyDto = SavePropertyDto.builder()
             .addressId(null)
-            .ownerId(456L)
+            .ownerId("456")
             .build();
 
         // Act
@@ -95,7 +95,7 @@ public class PropertyResourceTest {
             .statusCode(HttpStatus.SC_OK)
             .body("id", is(100),
                 "addressId", is(456),
-                "ownerId", is(123),
+                "ownerId", is("123"),
                 "bed", is(4),
                 "bath", is(2.25F),
                 "sqft", is(1943),
@@ -138,7 +138,7 @@ public class PropertyResourceTest {
         assertNotNull(result);
         assertEquals(1, result.size());
         assertEquals(100, result.get(0).getId());
-        assertEquals(123L, result.get(0).getOwnerId());
+        assertEquals("123", result.get(0).getOwnerId());
         assertEquals(456L, result.get(0).getAddressId());
         assertEquals(4, result.get(0).getBed().intValue());
         assertEquals(2.25F, result.get(0).getBath());
@@ -238,7 +238,7 @@ public class PropertyResourceTest {
             .statusCode(HttpStatus.SC_OK)
             .body("id", is(200),
                 "addressId", is(2),
-                "ownerId", is(1),
+                "ownerId", is("1"),
                 "bed", is(updatePropertyDto.getBed().intValue()),
                 "bath", is(updatePropertyDto.getBath()),
                 "sqft", is(updatePropertyDto.getSqft()),

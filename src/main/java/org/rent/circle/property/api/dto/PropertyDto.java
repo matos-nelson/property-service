@@ -9,7 +9,7 @@ import lombok.Setter;
 public class PropertyDto {
 
     private Long id;
-    private Long ownerId;
+    private String ownerId;
     private Long addressId;
     private Byte bed;
     private Float bath;

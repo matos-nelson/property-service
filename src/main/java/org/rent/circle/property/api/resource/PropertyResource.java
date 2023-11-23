@@ -29,13 +29,13 @@ public class PropertyResource {
 
     @GET
     @Path("/{id}/owner/{ownerId}")
-    public PropertyDto getProperty(@PathParam("id") long propertyId, @PathParam("ownerId") long ownerId) {
+    public PropertyDto getProperty(@PathParam("id") long propertyId, @PathParam("ownerId") String ownerId) {
         return propertyService.getProperty(propertyId, ownerId);
     }
 
     @GET
     @Path("/owner/{ownerId}")
-    public List<PropertyDto> getProperties(long ownerId, @QueryParam("page") @NotNull @Min(0) Integer page,
+    public List<PropertyDto> getProperties(String ownerId, @QueryParam("page") @NotNull @Min(0) Integer page,
         @QueryParam("pageSize") @NotNull @Min(1) Integer pageSize) {
         return propertyService.getProperties(ownerId, page, pageSize);
     }
@@ -47,7 +47,8 @@ public class PropertyResource {
 
     @PATCH
     @Path("/{id}/owner/{ownerId}")
-    public void updateProperty(@PathParam("id") long propertyId, @PathParam("ownerId") long ownerId, @Valid UpdatePropertyDto updatePropertyInfo) {
+    public void updateProperty(@PathParam("id") long propertyId, @PathParam("ownerId") String ownerId,
+        @Valid UpdatePropertyDto updatePropertyInfo) {
         propertyService.updateProperty(propertyId, ownerId, updatePropertyInfo);
     }
 }

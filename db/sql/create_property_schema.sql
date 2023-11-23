@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS property (
   id bigint PRIMARY KEY AUTO_INCREMENT,
-  owner_id bigint NOT NULL,
+  owner_id varchar(255) NOT NULL,
   address_id bigint NOT NULL,
   bed TINYINT DEFAULT NULL,
   bath float DEFAULT NULL,

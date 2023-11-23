@@ -28,7 +28,7 @@ public class PropertyRepositoryTest {
         // Arrange
 
         // Act
-        Property result = propertyRepository.findByIdAndOwnerId(123L, 456L);
+        Property result = propertyRepository.findByIdAndOwnerId(123L, "456");
 
         // Assert
         assertNull(result);
@@ -36,13 +36,13 @@ public class PropertyRepositoryTest {
 
     @Test
     @TestTransaction
-    public void findByZipAndCity_WhenCalled_ShouldReturnZip() {
+    public void findByIdAndOwnerId_WhenCalled_ShouldReturnProperty() {
         // Arrange
         Long id = 100L;
-        Long ownerId = 123L;
+        String ownerId = "123";
 
         // Act
-        Property result = propertyRepository.findByIdAndOwnerId(100L, 123L);
+        Property result = propertyRepository.findByIdAndOwnerId(id, "123");
 
         // Assert
         assertNotNull(result);
@@ -56,7 +56,7 @@ public class PropertyRepositoryTest {
         // Arrange
 
         // Act
-        List<Property> result = propertyRepository.getOwnerProperties(456L, 1, 10);
+        List<Property> result = propertyRepository.getOwnerProperties("456", 1, 10);
 
         // Assert
         assertNotNull(result);
@@ -69,7 +69,7 @@ public class PropertyRepositoryTest {
         // Arrange
 
         // Act
-        List<Property> result = propertyRepository.getOwnerProperties(123L, 0, 10);
+        List<Property> result = propertyRepository.getOwnerProperties("123", 0, 10);
 
         // Assert
         assertNotNull(result);
@@ -82,7 +82,7 @@ public class PropertyRepositoryTest {
         // Arrange
 
         // Act
-        List<Property> result = propertyRepository.getOwnerProperties(123L, 10, 10);
+        List<Property> result = propertyRepository.getOwnerProperties("123", 10, 10);
 
         // Assert
         assertNotNull(result);
