@@ -24,7 +24,7 @@ public class Property extends BaseModel {
     private Long id;
 
     @Column(name = "owner_id")
-    private Long ownerId;
+    private String ownerId;
 
     @Column(name = "address_id")
     private Long addressId;

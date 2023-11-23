@@ -10,12 +10,12 @@ import org.rent.circle.property.api.persistence.model.Property;
 @ApplicationScoped
 public class PropertyRepository implements PanacheRepository<Property> {
 
-    public Property findByIdAndOwnerId(Long id, Long ownerId) {
+    public Property findByIdAndOwnerId(Long id, String ownerId) {
         Parameters queryParams = Parameters.with("id", id).and("ownerId", ownerId);
         return find("id = :id and ownerId = :ownerId", queryParams).firstResult();
     }
 
-    public List<Property> getOwnerProperties(Long ownerId, int page, int pageSize) {
+    public List<Property> getOwnerProperties(String ownerId, int page, int pageSize) {
         return find("ownerId", ownerId)
             .page(Page.of(page, pageSize))
             .list();
