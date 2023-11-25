@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
+import org.rent.circle.property.api.annotation.AuthUser;
 import org.rent.circle.property.api.dto.PropertyDto;
 import org.rent.circle.property.api.dto.SavePropertyDto;
 import org.rent.circle.property.api.dto.UpdatePropertyDto;
@@ -21,6 +22,7 @@ import org.rent.circle.property.api.dto.UpdatePropertyDto;
 @QuarkusTest
 @TestHTTPEndpoint(PropertyResource.class)
 @QuarkusTestResource(H2DatabaseTestResource.class)
+@AuthUser
 public class PropertyResourceTest {
 
     @Test

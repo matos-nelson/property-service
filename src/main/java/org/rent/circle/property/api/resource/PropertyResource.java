@@ -1,5 +1,6 @@
 package org.rent.circle.property.api.resource;
 
+import io.quarkus.security.Authenticated;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -20,6 +21,7 @@ import org.rent.circle.property.api.dto.UpdatePropertyDto;
 import org.rent.circle.property.api.service.PropertyService;
 
 @AllArgsConstructor
+@Authenticated
 @Path("/property")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
