@@ -2,6 +2,8 @@ package org.rent.circle.property.api.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -13,6 +15,7 @@ import jakarta.inject.Inject;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
+import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.rent.circle.property.api.dto.PropertyDto;
@@ -33,6 +36,25 @@ public class PropertyServiceTest {
 
     @Inject
     PropertyService propertyService;
+
+
+    @Test
+    public void saveProperty_WhenPropertyAlreadyExists_ShouldReturnNull() {
+        // Arrange
+        SavePropertyDto savePropertyDto = SavePropertyDto.builder()
+            .ownerId("1")
+            .addressId(2L)
+            .build();
+
+        doThrow(new ConstraintViolationException("", null, "")).when(propertyRepository)
+            .persist((Property) Mockito.any());
+
+        // Act
+        Long result = propertyService.saveProperty(savePropertyDto);
+
+        // Assert
+        assertNull(result);
+    }
 
     @Test
     public void saveProperty_WhenCalled_ShouldReturnProperty() {

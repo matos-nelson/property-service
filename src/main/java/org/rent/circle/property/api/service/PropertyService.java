@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.ConstraintViolationException;
 import org.rent.circle.property.api.dto.PropertyDto;
 import org.rent.circle.property.api.dto.SavePropertyDto;
 import org.rent.circle.property.api.dto.UpdatePropertyDto;
@@ -36,7 +37,13 @@ public class PropertyService {
     public Long saveProperty(SavePropertyDto savePropertyDto) {
 
         Property property = propertyMapper.toModel(savePropertyDto);
-        propertyRepository.persist(property);
+
+        try {
+            propertyRepository.persist(property);
+        } catch (ConstraintViolationException e) {
+            log.info("Given Property Details Already Exist For Owner: {} ", savePropertyDto.getOwnerId());
+            return null;
+        }
 
         return property.getId();
     }
